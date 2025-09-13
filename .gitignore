@@ -1,0 +1,12 @@
+.DS_Store
+*.a
+*.o
+exam_progress/
+rendu/
+a.out
+p
+.vscode/
+extra/progress/
+.progress/
+*.dSYM
+a.out.dSYM/
