@@ -10,11 +10,46 @@
 **📁 Ubicación:** `05/level-1/APUNTES_LEVEL1.md`
 
 Contiene apuntes detallados para los 3 ejercicios del Level-1:
-- **`bigint`** - Números de precisión arbitraria
-- **`polyset`** - Estructuras de datos con herencia
-- **`vect2`** - Vectores matemáticos 2D
 
-*Incluye errores corregidos, implementaciones completas y consejos para el examen.*
+#### 🔢 **BIGINT** - Números de Precisión Arbitraria
+- **📁 Ubicación:** `05/level-1/bigint/`
+- **📚 README:** [Ver README](05/level-1/bigint/README.md)
+- **🎯 Características:** Sobrecarga de operadores, aritmética de precisión arbitraria
+- **⚠️ Errores corregidos:** Función `addition` con carry
+
+#### 🎯 **POLYSET** - Estructuras de Datos con Herencia
+- **📁 Ubicación:** `05/level-1/polyset/`
+- **📚 README:** [Ver README](05/level-1/polyset/README.md)
+- **🎯 Características:** Herencia múltiple, polimorfismo, patrones de diseño
+- **📄 Documentación completa:** [POLYSET_COMPLETO.md](05/level-1/polyset/POLYSET_COMPLETO.md)
+
+#### 📐 **VECT2** - Vectores Matemáticos 2D
+- **📁 Ubicación:** `05/level-1/vect2/`
+- **📚 README:** [Ver README](05/level-1/vect2/README.md)
+- **🎯 Características:** Operaciones vectoriales, sobrecarga de operadores
+- **⚠️ Errores corregidos:** Operador `<<` con parámetro correcto
+
+### 🎯 Level-2: Algoritmos Avanzados
+**📁 Ubicación:** `05/level-2/APUNTES_LEVEL2.md`
+
+Contiene apuntes detallados para los 2 ejercicios del Level-2:
+
+#### 🔍 **BSQ** - Biggest Square (Programación Dinámica)
+- **📁 Ubicación:** `05/level-2/bsq/`
+- **📚 README:** [Ver README](05/level-2/README.md#bsq---biggest-square)
+- **🎯 Características:** Programación dinámica, matriz DP, validación de mapas
+- **📊 Complejidad:** O(rows × cols)
+
+#### 🎮 **Game of Life** - Simulación de Autómatas Celulares
+- **📁 Ubicación:** `05/level-2/game_of_life/`
+- **📚 README:** [Ver README](05/level-2/README.md#game-of-life)
+- **🎯 Características:** Simulación, reglas de Conway, comandos de dibujo
+- **📊 Complejidad:** O(iterations × width × height)
+
+### 📚 **Enlaces Rápidos:**
+- [📁 Level-1 Completo](05/level-1/)
+- [📁 Level-2 Completo](05/level-2/)
+- [🧪 Ejemplos de Uso Level-2](05/level-2/EJEMPLOS_USO.md)
 
 ---
 
