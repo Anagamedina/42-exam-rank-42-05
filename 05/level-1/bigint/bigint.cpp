@@ -98,7 +98,10 @@ std::string addition(const bigint& obj1, const bigint& obj2)
 			result.push_back((res % 10) + '0');
 		}
 		else
+		{
+			carry = 0;
 			result.push_back(res + '0');
+		}
 	}
 	if(carry != 0)
 		result.push_back(carry + '0');

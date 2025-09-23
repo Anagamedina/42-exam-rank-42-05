@@ -174,7 +174,7 @@ vect2::~vect2()
 
 std::ostream& operator<<(std::ostream& os,const vect2& obj)
 {
-	std::cout << "{" << obj[0] << ", " << obj[1] << "}";
+	os << "{" << obj[0] << ", " << obj[1] << "}";
 	return(os);
 }
 

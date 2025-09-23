@@ -4,6 +4,20 @@
 
 # 📘 Apuntes Técnicos de C++ (Orientados al Exam Rank 05 de 42)
 
+## 🎯 Apuntes Específicos por Level
+
+### 📚 Level-1: Ejercicios Fundamentales
+**📁 Ubicación:** `05/level-1/APUNTES_LEVEL1.md`
+
+Contiene apuntes detallados para los 3 ejercicios del Level-1:
+- **`bigint`** - Números de precisión arbitraria
+- **`polyset`** - Estructuras de datos con herencia
+- **`vect2`** - Vectores matemáticos 2D
+
+*Incluye errores corregidos, implementaciones completas y consejos para el examen.*
+
+---
+
 ---
 
 🔹 Orientación a Objetos
@@ -315,3 +329,53 @@ std::sort(v.begin(), v.end());
 [¿Qué es un patrón de diseño?](https://refactoring.guru/es/design-patterns/what-is-pattern)
 
 [Patrones de diseno POO](https://www.notion.so/Patrones-de-diseno-POO-276c25dc1abf80a88f68e14b3964791b?pvs=21)
+
+---
+
+## 🔧 Errores Corregidos en Level-1
+
+### ❌ Errores Encontrados y Solucionados:
+
+#### 1. **bigint.cpp** - Función `addition`
+**Problema:** No se reseteaba el `carry` cuando `res <= 9`
+```cpp
+// ❌ ANTES (incorrecto)
+if(res > 9) {
+    carry = res / 10;
+    result.push_back((res % 10) + '0');
+} else
+    result.push_back(res + '0');  // carry no se resetea
+
+// ✅ DESPUÉS (corregido)
+if(res > 9) {
+    carry = res / 10;
+    result.push_back((res % 10) + '0');
+} else {
+    carry = 0;  // ¡IMPORTANTE! Resetear carry
+    result.push_back(res + '0');
+}
+```
+
+#### 2. **vect2.cpp** - Operador `<<`
+**Problema:** Usaba `std::cout` en lugar del parámetro `os`
+```cpp
+// ❌ ANTES (incorrecto)
+std::ostream& operator<<(std::ostream& os, const vect2& obj) {
+    std::cout << "{" << obj[0] << ", " << obj[1] << "}";
+    return(os);
+}
+
+// ✅ DESPUÉS (corregido)
+std::ostream& operator<<(std::ostream& os, const vect2& obj) {
+    os << "{" << obj[0] << ", " << obj[1] << "}";
+    return(os);
+}
+```
+
+### 🎯 Lecciones Aprendidas:
+1. **Siempre resetear variables de estado** en bucles
+2. **Usar parámetros de función** en lugar de variables globales
+3. **Validar casos edge** en algoritmos matemáticos
+4. **Probar con diferentes flujos de datos** para detectar errores
+
+---
