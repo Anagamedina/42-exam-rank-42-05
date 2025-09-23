@@ -14,33 +14,41 @@
 
 #include "bag.hpp"
 
+/**
+ * @brief Implementación de bag usando árbol binario de búsqueda
+ * Hereda de bag y usa BST como estructura de datos subyacente
+ */
 class tree_bag : virtual public bag {
 protected:
-	// binary serach tree node yapısı
+	// Estructura de nodo del árbol binario de búsqueda
 	struct node {
-	  node *l;
-	  node *r;
-	  int value;
+	  node *l;      // Hijo izquierdo
+	  node *r;      // Hijo derecho
+	  int value;    // Valor del nodo
 	};
 
-	node *tree; // root node
+	node *tree;     // Nodo raíz del árbol
 
 public:
-	tree_bag();
-	tree_bag(const tree_bag &);
-	tree_bag  &operator=(const tree_bag &);
-	~tree_bag();
+	// ==================== CONSTRUCTORES Y DESTRUCTOR ====================
+	tree_bag();                                    // Constructor por defecto
+	tree_bag(const tree_bag &);                    // Constructor de copia
+	tree_bag &operator=(const tree_bag &);         // Operador de asignación
+	~tree_bag();                                   // Destructor
 
-	node *extract_tree(); // getter
-	void set_tree(node *); // dışarıdan gelen tree'yi classtaki tree'ye yerleştirir.
+	// ==================== MÉTODOS DE ÁRBOL ====================
+	node *extract_tree();                          // Obtener el árbol (getter)
+	void set_tree(node *);                         // Establecer el árbol
 
-	virtual void insert(int);
-	virtual void insert(int *array, int size);
-	virtual void print() const;
-	virtual void clear();
+	// ==================== MÉTODOS DE BAG ====================
+	virtual void insert(int);                      // Insertar un elemento
+	virtual void insert(int *array, int size);     // Insertar array de elementos
+	virtual void print() const;                    // Imprimir todos los elementos
+	virtual void clear();                          // Limpiar el bag
 
 private:
-	static void destroy_tree(node *);
-	static void print_node(node *);
-	static node *copy_node(node *); // void* -> node* yapıldı
+	// ==================== MÉTODOS ESTÁTICOS AUXILIARES ====================
+	static void destroy_tree(node *);              // Destruir árbol recursivamente
+	static void print_node(node *);                // Imprimir nodo recursivamente
+	static node *copy_node(node *);                // Copiar nodo recursivamente
 };

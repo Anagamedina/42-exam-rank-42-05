@@ -12,6 +12,8 @@
 
 #include "vect2.hpp"
 
+// ==================== CONSTRUCTORES ====================
+
 vect2::vect2()
 {
 	this->x = 0;
@@ -39,6 +41,8 @@ vect2& vect2::operator=(const vect2& source)
 	return(*this);
 }
 
+// ==================== OPERADORES DE ACCESO ====================
+
 int vect2::operator[](int index) const
 {
 	if(index == 0)
@@ -53,6 +57,8 @@ int& vect2::operator[](int index)
 	return(this->y);
 }
 
+// ==================== OPERADORES UNARIOS ====================
+
 vect2 vect2::operator-() const
 {
 	vect2 temp = *this;
@@ -62,14 +68,41 @@ vect2 vect2::operator-() const
 }
 
 
+// ==================== OPERADORES ARITMÉTICOS ====================
+
 vect2 vect2::operator*(int num) const
 {
 	vect2 temp;
-
 	temp.x = this->x * num;
 	temp.y = this->y * num;
 	return(temp);
 }
+
+vect2 vect2::operator+(const vect2& obj) const
+{
+	vect2 temp = *this;
+	temp.x += obj.x;
+	temp.y += obj.y;
+	return(temp);
+}
+
+vect2 vect2::operator-(const vect2& obj) const
+{
+	vect2 temp = *this;
+	temp.x -= obj.x;
+	temp.y -= obj.y;
+	return(temp);
+}
+
+vect2 vect2::operator*(const vect2& obj) const
+{
+	vect2 temp = *this;
+	temp.x *= obj.x;
+	temp.y *= obj.y;
+	return(temp);
+}
+
+// ==================== OPERADORES DE ASIGNACIÓN ====================
 
 vect2& vect2::operator*=(int num)
 {
@@ -99,30 +132,7 @@ vect2& vect2::operator*=(const vect2& obj)
 	return(*this);
 }
 
-vect2 vect2::operator+(const vect2& obj) const
-{
-	vect2 temp = *this;
-
-	temp.x += obj.x;
-	temp.y += obj.y;
-	return(temp);
-}
-
-vect2 vect2::operator-(const vect2& obj) const
-{
-	vect2 temp = *this;
-	temp.x -= obj.x;
-	temp.y -= obj.y;
-	return(temp);
-}
-
-vect2 vect2::operator*(const vect2& obj) const
-{
-	vect2 temp = *this;
-	temp.x *= obj.x;
-	temp.y *= obj.y;
-	return(temp);
-}
+// ==================== OPERADORES DE INCREMENTO/DECREMENTO ====================
 
 vect2& vect2::operator++()
 {
@@ -134,7 +144,6 @@ vect2& vect2::operator++()
 vect2 vect2::operator++(int)
 {
 	vect2 temp = *this;
-
 	++(*this);
 	return(temp);
 }
@@ -149,10 +158,11 @@ vect2& vect2::operator--()
 vect2 vect2::operator--(int)
 {
 	vect2 temp = *this;
-
 	--(*this);
 	return(temp);
 }
+
+// ==================== OPERADORES DE COMPARACIÓN ====================
 
 bool vect2::operator==(const vect2& obj) const
 {
@@ -166,18 +176,20 @@ bool vect2::operator!=(const vect2& obj) const
 	return(!(obj == *this));
 }
 
+// ==================== DESTRUCTOR ====================
+
 vect2::~vect2()
 {
-
+	// Destructor vacío - no hay memoria dinámica que liberar
 }
 
+// ==================== OPERADORES FRIEND ====================
 
-std::ostream& operator<<(std::ostream& os,const vect2& obj)
+std::ostream& operator<<(std::ostream& os, const vect2& obj)
 {
 	os << "{" << obj[0] << ", " << obj[1] << "}";
 	return(os);
 }
-
 
 vect2 operator*(int num, const vect2& obj)
 {

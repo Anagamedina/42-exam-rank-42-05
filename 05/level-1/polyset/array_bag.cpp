@@ -1,6 +1,8 @@
 #include "array_bag.hpp"
 #include <iostream>
 
+// ==================== CONSTRUCTORES Y DESTRUCTOR ====================
+
 array_bag::array_bag() {
 	size = 0;
 	data = nullptr;
@@ -35,6 +37,8 @@ array_bag::~array_bag() {
 		data = nullptr;
 	}
 }
+
+// ==================== MÉTODOS DE BAG ====================
 
 void array_bag::insert(int item) {
 	int *new_data = new int[size + 1];
