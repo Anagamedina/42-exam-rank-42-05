@@ -12,24 +12,45 @@
 
 #include "bigint.hpp"
 
+// ==================== CONSTRUCTORES ====================
+
+/**
+ * @brief Constructor por defecto
+ * Inicializa el bigint con valor "0"
+ */
 bigint::bigint()
 {
 	this->str = "0";
 }
 
+/**
+ * @brief Constructor con entero sin signo
+ * Convierte el entero a string para almacenamiento
+ * @param num Número entero a convertir
+ */
 bigint::bigint(unsigned int num)
 {
 	std::stringstream ss;
 	ss << num;
 	this->str = ss.str();
-	// std::cout << "str: " << str << std::endl;
 }
 
+/**
+ * @brief Constructor de copia
+ * @param source Objeto bigint a copiar
+ */
 bigint::bigint(const bigint& source)
 {
 	(*this) = source;
 }
 
+// ==================== OPERADORES DE ASIGNACIÓN ====================
+
+/**
+ * @brief Operador de asignación
+ * @param source Objeto bigint a asignar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator=(const bigint& source)
 {
 	if(this == &source)
@@ -38,11 +59,24 @@ bigint& bigint::operator=(const bigint& source)
 	return(*this);
 }
 
+// ==================== GETTERS ====================
+
+/**
+ * @brief Obtiene la representación string del número
+ * @return String que representa el número
+ */
 std::string bigint::getStr() const
 {
 	return(this->str);
 }
 
+// ==================== FUNCIONES AUXILIARES ====================
+
+/**
+ * @brief Invierte un string
+ * @param str String a invertir
+ * @return String invertido
+ */
 std::string reverse(const std::string& str)
 {
 	std::string revStr;
@@ -53,14 +87,23 @@ std::string reverse(const std::string& str)
 	return(revStr);
 }
 
+/**
+ * @brief Realiza la suma de dos bigint
+ * Algoritmo: suma dígito por dígito con carry
+ * @param obj1 Primer bigint
+ * @param obj2 Segundo bigint
+ * @return String con el resultado de la suma
+ */
 std::string addition(const bigint& obj1, const bigint& obj2)
 {
+	// Invertir strings para facilitar la suma
 	std::string str1 = reverse(obj1.getStr());
 	std::string str2 = reverse(obj2.getStr());
 	std::string result;
 	size_t len1 = str1.length();
 	size_t len2 = str2.length();
 
+	// Igualar longitudes con ceros a la derecha
 	if(len1 > len2)
 	{
 		int diff = len1 - len2;
@@ -80,6 +123,7 @@ std::string addition(const bigint& obj1, const bigint& obj2)
 		}
 	}
 
+	// Sumar dígito por dígito con carry
 	int carry = 0;
 	int digit1;
 	int digit2;
@@ -87,11 +131,9 @@ std::string addition(const bigint& obj1, const bigint& obj2)
 	for(size_t i = 0; i < len; i++)
 	{
 		digit1 = str1[i] - '0';
-		// std::cout <<  "digit1:" << digit1 << std::endl;
 		digit2 = str2[i] - '0';
-		// std::cout << "digit2:" << digit2 << std::endl;
 		int res = digit1 + digit2 + carry;
-		// std::cout << res << std::endl;
+		
 		if(res > 9)
 		{
 			carry = res / 10;
@@ -99,38 +141,61 @@ std::string addition(const bigint& obj1, const bigint& obj2)
 		}
 		else
 		{
-			carry = 0;
+			carry = 0;  // ¡IMPORTANTE! Resetear carry
 			result.push_back(res + '0');
 		}
 	}
+	
+	// Si queda carry, agregarlo
 	if(carry != 0)
 		result.push_back(carry + '0');
+	
 	return(reverse(result));
 }
 
-bigint bigint::operator+(const bigint& other)const
+// ==================== OPERADORES ARITMÉTICOS ====================
+
+/**
+ * @brief Operador de suma
+ * @param other Otro bigint a sumar
+ * @return Nuevo bigint con el resultado
+ */
+bigint bigint::operator+(const bigint& other) const
 {
 	bigint temp(other);
 	temp.str.clear();
 	std::string result = addition(*this, other);
 	temp.str = result;
-	//std::cout << "r: " << result << std::endl;
-
 	return(temp);
 }
 
+/**
+ * @brief Operador de suma y asignación
+ * @param other Otro bigint a sumar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator+=(const bigint& other)
 {
 	(*this) = (*this) + other;
 	return(*this);
 }
 
+// ==================== OPERADORES DE INCREMENTO ====================
+
+/**
+ * @brief Incremento prefijo (++x)
+ * @return Referencia al objeto actual incrementado
+ */
 bigint& bigint::operator++()
 {
 	*(this) = *(this) + bigint(1);
 	return(*this);
 }
 
+/**
+ * @brief Incremento postfijo (x++)
+ * @return Copia del objeto antes del incremento
+ */
 bigint bigint::operator++(int)
 {
 	bigint temp = (*this);
@@ -139,40 +204,69 @@ bigint bigint::operator++(int)
 }
 
 
-bigint bigint::operator<<(unsigned int n)const
+// ==================== OPERADORES DE DESPLAZAMIENTO (CON ENTERO) ====================
+
+/**
+ * @brief Desplazamiento a la izquierda (multiplicación por 10^n)
+ * @param n Número de posiciones a desplazar
+ * @return Nuevo bigint desplazado
+ */
+bigint bigint::operator<<(unsigned int n) const
 {
 	bigint temp = *this;
-
+	// Agregar n ceros al final (multiplicar por 10^n)
 	temp.str.insert(temp.str.end(), n, '0');
-	//std::cout << temp.str << std::endl;
 	return(temp);
 }
 
-bigint bigint::operator>>(unsigned int n)const
+/**
+ * @brief Desplazamiento a la derecha (división por 10^n)
+ * @param n Número de posiciones a desplazar
+ * @return Nuevo bigint desplazado
+ */
+bigint bigint::operator>>(unsigned int n) const
 {
 	bigint temp = *this;
 	size_t len = temp.str.length();
+	
+	// Si n es mayor o igual a la longitud, resultado es 0
 	if(n >= len)
 		temp.str = "0";
 	else
 	{
-		temp.str.erase(temp.str.length() - n, n); // ilk parametre: silme yapacağın yerin başlangıç indexi, diğeri: kaç tane eleman silinecek
+		// Eliminar n caracteres desde el final
+		temp.str.erase(temp.str.length() - n, n);
 	}
 	return(temp);
 }
 
+/**
+ * @brief Desplazamiento a la izquierda y asignación
+ * @param n Número de posiciones a desplazar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator<<=(unsigned int n)
 {
 	(*this) = (*this) << n;
 	return(*this);
 }
 
+/**
+ * @brief Desplazamiento a la derecha y asignación
+ * @param n Número de posiciones a desplazar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator>>=(unsigned int n)
 {
 	(*this) = (*this) >> n;
 	return(*this);
 }
 
+/**
+ * @brief Convierte string a unsigned int
+ * @param str String a convertir
+ * @return Entero sin signo
+ */
 unsigned int stringToUINT(std::string str)
 {
 	std::stringstream ss(str);
@@ -181,26 +275,48 @@ unsigned int stringToUINT(std::string str)
 	return (res);
 }
 
-bigint bigint::operator<<(const bigint& other)const
+// ==================== OPERADORES DE DESPLAZAMIENTO (CON BIGINT) ====================
+
+/**
+ * @brief Desplazamiento a la izquierda con bigint
+ * @param other Bigint que indica las posiciones a desplazar
+ * @return Nuevo bigint desplazado
+ */
+bigint bigint::operator<<(const bigint& other) const
 {
 	bigint temp;
 	temp = (*this) << stringToUINT(other.str);
 	return(temp);
 }
 
-bigint bigint::operator>>(const bigint& other)const
+/**
+ * @brief Desplazamiento a la derecha con bigint
+ * @param other Bigint que indica las posiciones a desplazar
+ * @return Nuevo bigint desplazado
+ */
+bigint bigint::operator>>(const bigint& other) const
 {
 	bigint temp;
 	temp = (*this) >> stringToUINT(other.str);
 	return(temp);
 }
 
+/**
+ * @brief Desplazamiento a la izquierda y asignación con bigint
+ * @param other Bigint que indica las posiciones a desplazar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator<<=(const bigint& other)
 {
 	(*this) = (*this) << stringToUINT(other.str);
 	return(*this);
 }
 
+/**
+ * @brief Desplazamiento a la derecha y asignación con bigint
+ * @param other Bigint que indica las posiciones a desplazar
+ * @return Referencia al objeto actual
+ */
 bigint& bigint::operator>>=(const bigint& other)
 {
 	(*this) = (*this) >> stringToUINT(other.str);
@@ -208,6 +324,13 @@ bigint& bigint::operator>>=(const bigint& other)
 }
 
 
+// ==================== OPERADORES DE COMPARACIÓN ====================
+
+/**
+ * @brief Operador de igualdad
+ * @param other Otro bigint a comparar
+ * @return true si son iguales, false en caso contrario
+ */
 bool bigint::operator==(const bigint& other) const
 {
 	if(this->getStr() == other.getStr())
@@ -215,11 +338,21 @@ bool bigint::operator==(const bigint& other) const
 	return(false);
 }
 
+/**
+ * @brief Operador de desigualdad
+ * @param other Otro bigint a comparar
+ * @return true si son diferentes, false en caso contrario
+ */
 bool bigint::operator!=(const bigint& other) const
 {
 	return(!((*this) == (other)));
 }
 
+/**
+ * @brief Operador menor que
+ * @param other Otro bigint a comparar
+ * @return true si es menor, false en caso contrario
+ */
 bool bigint::operator<(const bigint& other) const
 {
 	std::string str1 = this->str;
@@ -227,27 +360,52 @@ bool bigint::operator<(const bigint& other) const
 	size_t len1 = str1.length();
 	size_t len2 = str2.length();
 
+	// Si las longitudes son diferentes, el más corto es menor
 	if(len1 != len2)
 		return(len1 < len2);
-	return(str1 < str2);  // thanks for your feedback, mjuicha!! o7
+	
+	// Si las longitudes son iguales, comparar lexicográficamente
+	return(str1 < str2);
 }
 
+/**
+ * @brief Operador mayor que
+ * @param other Otro bigint a comparar
+ * @return true si es mayor, false en caso contrario
+ */
 bool bigint::operator>(const bigint& other) const
 {
 	return(!(((*this) < other)));
 }
 
+/**
+ * @brief Operador menor o igual que
+ * @param other Otro bigint a comparar
+ * @return true si es menor o igual, false en caso contrario
+ */
 bool bigint::operator<=(const bigint& other) const
 {
 	return((((*this) < other) || ((*this) == other)));
 }
 
+/**
+ * @brief Operador mayor o igual que
+ * @param other Otro bigint a comparar
+ * @return true si es mayor o igual, false en caso contrario
+ */
 bool bigint::operator>=(const bigint& other) const
 {
 	return((((*this) > other) || ((*this) == other)));
 }
 
-// non member func
+// ==================== OPERADOR DE FLUJO ====================
+
+/**
+ * @brief Operador de salida para streams
+ * @param output Stream de salida
+ * @param obj Objeto bigint a imprimir
+ * @return Referencia al stream
+ */
 std::ostream& operator<<(std::ostream& output, const bigint& obj)
 {
 	output << obj.getStr();

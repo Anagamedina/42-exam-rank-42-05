@@ -1,0 +1,117 @@
+[EN]
+Assignment name: Polyset
+Expected files: searchable_array_bag.cpp, searchable_array_bag.hpp,
+searchable_tree_bag.cpp, searchable_tree_bag.hpp, set.cpp, set.hpp
+--------------------------------------------------------------------------------
+
+## 📋 Description
+You will find in this directory some classes that implement a polymorphic set system:
+- **bag**: an abstract class representing a bag (multiset)
+- **searchable_bag**: an abstract class representing a bag with search capability
+- **array_bag**: an implementation of a bag using an array as underlying data structure
+- **tree_bag**: an implementation of a bag using a binary search tree as underlying data structure
+
+If you don't know what is a set or a bag, you can read the attached file `shame.en.txt`
+
+## 🎯 Objective
+Implement a polymorphic set system using inheritance and virtual functions.
+
+## 🔧 Requirements
+
+### First Part: Searchable Bags
+Since a bag without a searching function isn't very useful, implement two classes:
+- **searchable_array_bag**: inherits from `array_bag` and implements `searchable_bag`
+- **searchable_tree_bag**: inherits from `tree_bag` and implements `searchable_bag`
+
+### Second Part: Set Wrapper
+Implement the class **set** that will wrap a `searchable_bag` and turn it into a set.
+A set ensures that each element appears only once.
+
+## 📝 Example Usage
+```cpp
+// Create different types of bags
+searchable_array_bag arrayBag;
+searchable_tree_bag treeBag;
+
+// Insert elements
+arrayBag.insert(1);
+arrayBag.insert(2);
+arrayBag.insert(1); // Duplicate allowed in bag
+
+// Check if element exists
+bool hasOne = arrayBag.has(1); // true
+bool hasThree = arrayBag.has(3); // false
+
+// Create set from bag
+set mySet(&arrayBag);
+mySet.insert(1);
+mySet.insert(2);
+mySet.insert(1); // Duplicate not inserted in set
+```
+
+## ⚠️ Important Notes
+- You will find a main in this directory that must compile with your code
+- All classes should be under orthodox canonical form
+- Don't forget the `const` keywords where appropriate
+- Use virtual inheritance to avoid diamond problem
+- Implement proper memory management
+
+---
+
+[ES]
+Nombre de la asignación: Polyset
+Archivos esperados: searchable_array_bag.cpp, searchable_array_bag.hpp,
+searchable_tree_bag.cpp, searchable_tree_bag.hpp, set.cpp, set.hpp
+--------------------------------------------------------------------------------
+
+## 📋 Descripción
+Encontrarás en este directorio algunas clases que implementan un sistema de conjuntos polimórfico:
+- **bag**: una clase abstracta que representa una bolsa (multiconjunto)
+- **searchable_bag**: una clase abstracta que representa una bolsa con capacidad de búsqueda
+- **array_bag**: una implementación de una bolsa usando un array como estructura de datos subyacente
+- **tree_bag**: una implementación de una bolsa usando un árbol binario de búsqueda como estructura de datos subyacente
+
+Si no sabes qué es un conjunto o una bolsa, puedes leer el archivo adjunto `shame.en.txt`
+
+## 🎯 Objetivo
+Implementar un sistema de conjuntos polimórfico usando herencia y funciones virtuales.
+
+## 🔧 Requisitos
+
+### Primera Parte: Bolsas Buscables
+Como una bolsa sin función de búsqueda no es muy útil, implementa dos clases:
+- **searchable_array_bag**: hereda de `array_bag` e implementa `searchable_bag`
+- **searchable_tree_bag**: hereda de `tree_bag` e implementa `searchable_bag`
+
+### Segunda Parte: Wrapper de Conjunto
+Implementa la clase **set** que envolverá un `searchable_bag` y lo convertirá en un conjunto.
+Un conjunto asegura que cada elemento aparezca solo una vez.
+
+## 📝 Ejemplo de Uso
+```cpp
+// Crear diferentes tipos de bolsas
+searchable_array_bag arrayBag;
+searchable_tree_bag treeBag;
+
+// Insertar elementos
+arrayBag.insert(1);
+arrayBag.insert(2);
+arrayBag.insert(1); // Duplicado permitido en bolsa
+
+// Verificar si elemento existe
+bool hasOne = arrayBag.has(1); // true
+bool hasThree = arrayBag.has(3); // false
+
+// Crear conjunto desde bolsa
+set mySet(&arrayBag);
+mySet.insert(1);
+mySet.insert(2);
+mySet.insert(1); // Duplicado no insertado en conjunto
+```
+
+## ⚠️ Notas Importantes
+- Encontrarás un main en este directorio que debe compilar con tu código
+- Todas las clases deben estar bajo la forma canónica ortodoxa
+- No olvides las palabras clave `const` donde sea apropiado
+- Usa herencia virtual para evitar el problema del diamante
+- Implementa manejo de memoria apropiado
