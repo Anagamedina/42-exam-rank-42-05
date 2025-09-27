@@ -365,3 +365,4 @@ void ft_bsq(char **argv)
         }
     }
 }
+

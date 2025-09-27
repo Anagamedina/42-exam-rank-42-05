@@ -244,3 +244,4 @@ Level-4: Arquitectura de Software
 5. **Optimizar código** - Mejorar rendimiento
 
 ¡Con estos apuntes tienes todo lo necesario para dominar el Level-2! 🚀
+

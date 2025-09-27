@@ -213,3 +213,4 @@ class searchable_array_bag : public array_bag, public searchable_bag
 - **Gestión de memoria**
 
 ¡Es un excelente ejercicio para practicar conceptos avanzados de C++! 🎯
+

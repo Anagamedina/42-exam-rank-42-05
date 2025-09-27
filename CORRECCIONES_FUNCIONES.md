@@ -182,3 +182,4 @@ Todos los ejercicios han sido revisados y corregidos:
 - **Implementaciones:** ✅ Alternativas manuales
 
 ¡Ahora todos los ejercicios cumplen con las restricciones del examen! 🎉
+
